@@ -1,0 +1,31 @@
+$ gcc -std=c11 -Wall -Wextra -o build/hal_demo src/main.c src/hal.c
+(compiled with no errors or warnings)
+
+$ ./build/hal_demo
+=== Embedded Linux HAL demo (simulated registers) ===
+[HAL] init: GPIO/I2C/SPI/UART simulated peripherals ready
+[I2C]  read  addr=0x48 reg=0x00 len=1 data=[0x48]
+Sensor WHO_AM_I = 0x48 (expected 0x48) -> OK, sensor detected
+[I2C]  read  addr=0x48 reg=0x01 len=2 data=[0x19 0x80]
+Temperature = 25.50 C
+[SIM]  sensor temperature registers set to MSB=0xF6 LSB=0x00
+[I2C]  read  addr=0x48 reg=0x01 len=2 data=[0xF6 0x00]
+Temperature = -10.00 C
+[GPIO] write pin=5 level=HIGH (latch=0x0020)
+[GPIO] write pin=7 level=LOW (latch=0x0020)
+[GPIO] read  pin=5 level=HIGH
+[GPIO] read  pin=5 level=HIGH
+[GPIO] write pin=5 level=LOW (latch=0x0000)
+[GPIO] read  pin=5 level=LOW
+[GPIO] write pin=5 level=HIGH (latch=0x0020)
+[GPIO] read  pin=5 level=HIGH
+[SPI]  transfer len=4 tx=[0x9F 0x00 0x00 0x00] rx=[0xA5 0xFF 0xFF 0xFF]
+[UART] tx (50 bytes): "HAL demo complete: sensor OK, GPIO toggled, SPI OK"
+--- Summary ---
+WHO_AM_I      : 0x48
+Last temp     : -10.00 C
+GPIO pin 5    : HIGH (after 2 toggles)
+SPI rx[0]     : 0xA5
+UART message  : "HAL demo complete: sensor OK, GPIO toggled, SPI OK"
+Result        : PASS
+[HAL] deinit: peripherals shut down
